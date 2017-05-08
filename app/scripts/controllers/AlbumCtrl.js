@@ -1,12 +1,13 @@
 (function() {
     function AlbumCtrl() {
-        this.albumData = [];
+        this.albumSongs = [];
+        this.albumData = [angular.copy(albumPicasso)];
         for (var i=0; i < 5; i++) {
-            this.albums.push(angular.copy(albumPicasso));
+            this.albumSongs.push(albumPicasso.songs[i])
         }
     }
  
     angular
         .module('blocJams')
         .controller('AlbumCtrl', AlbumCtrl);
-})();dasda
+})();
