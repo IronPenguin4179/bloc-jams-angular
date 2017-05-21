@@ -24,8 +24,8 @@
             <h3 class="artist-name">{{ playerBar.albumData.title }}</h3>
             <div class="seek-control">
                 <seek-bar value="{{ playerBar.songPlayer.currentTime }}" max="{{ playerBar.songPlayer.currentSong.duration }}" on-change="playerBar.songPlayer.setCurrentTime(value)"></seek-bar>      
-                <div class="current-time">{{ playerBar.songPlayer.currentTime }}</div>
-                <div class="total-time">{{ playerBar.songPlayer.currentSong.duration }}</div>
+                <div class="current-time">{{ playerBar.songPlayer.currentTime | timeCode: }}</div>
+                <div class="total-time">{{ playerBar.songPlayer.currentSong.duration | timeCode }}</div>
             </div>
         </div>
         <div class="control-group volume">
