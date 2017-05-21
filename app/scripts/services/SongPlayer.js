@@ -31,26 +31,26 @@
          * @desc Buzz object audio file
          * @type {Object}
          */
-        var currentBuzzObject = null;
+        SongPlayer.currentBuzzObject = null;
 
         /**
          * @function setSong
-         * @desc Stops currently playing song and loads new audio file as currentBuzzObject
+         * @desc Stops currently playing song and loads new audio file as SongPlayer.currentBuzzObject
          * @param {Object} song
          */
         var setSong = function(song) {
-            if (currentBuzzObject) {
+            if (SongPlayer.currentBuzzObject) {
                 stopSong();
             }
 
-            currentBuzzObject = new buzz.sound(song.audioUrl, {
+            SongPlayer.currentBuzzObject = new buzz.sound(song.audioUrl, {
                 formats: ['mp3'],
                 preload: true
             });
 
-            currentBuzzObject.bind('timeupdate', function() {
+            SongPlayer.currentBuzzObject.bind('timeupdate', function() {
                 $rootScope.$apply(function() {
-                    SongPlayer.currentTime = currentBuzzObject.getTime();
+                    SongPlayer.currentTime = SongPlayer.currentBuzzObject.getTime();
                 });
             });
 
@@ -62,12 +62,12 @@
          * @desc Plays current song and makes currentSong playing true
          */
         var playSong = function() {
-            currentBuzzObject.play();
+            SongPlayer.currentBuzzObject.play();
             SongPlayer.currentSong.playing=true;
         }
 
         var stopSong = function() {
-            currentBuzzObject.stop();
+            SongPlayer.currentBuzzObject.stop();
             SongPlayer.currentSong.playing=null;
         }
 
@@ -83,7 +83,7 @@
                 setSong(song);
                 playSong();
             } else if (SongPlayer.currentSong === song) {
-                if (currentBuzzObject.isPaused()) {
+                if (SongPlayer.currentBuzzObject.isPaused()) {
                     playSong();
                 };
             };
@@ -96,7 +96,7 @@
          */
         SongPlayer.pause = function(song) {
             song = song || SongPlayer.currentSong;
-            currentBuzzObject.pause();
+            SongPlayer.currentBuzzObject.pause();
             song.playing = false;
         };
 
@@ -134,13 +134,13 @@
          * @param {Number} time
          */
         SongPlayer.setCurrentTime = function(time) {
-            if (currentBuzzObject) {
-                currentBuzzObject.setTime(time);
+            if (SongPlayer.currentBuzzObject) {
+                SongPlayer.currentBuzzObject.setTime(time);
             }
         };
 
         SongPlayer.setVolume = function(volume) {
-            currentBuzzObject.setVolume(volume);
+            SongPlayer.currentBuzzObject.setVolume(volume);
         }
 
         return SongPlayer;
